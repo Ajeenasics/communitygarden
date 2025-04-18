@@ -12,6 +12,9 @@ import Gardnerchat from "./pages/chat/Gardnerchat"
 import GardenerProfile from './components/GardenerProfile'
 import EventView from './pages/Event/EventView'
 import ViewResource from './pages/Resources/ViewResource'
+import GardnerForgetpasswordPage from './pages/landing/GardnerForgetpasswordPage'
+import ManagerLogin from './pages/landing/ManagerLogin'
+import ManagerSignup from './pages/landing/ManagerSignup'
 
 function App() {
   return (
@@ -29,6 +32,10 @@ function App() {
       <Route path="/gardener/profile" element={<GardenerProfile/>} />
       <Route path="/gardener/viewevent" element={<EventView/>} />
       <Route path="/gardener/viewresource" element={<ViewResource/>} />
+      <Route path="/gardener/forgetpassword" element={<GardnerForgetpasswordPage/>} />
+      <Route path="/manager/Login" element={<ManagerLogin/>} />
+      <Route path="/manager/Signup" element={<ManagerSignup/>} />
+
     </Routes>
   )
 }
