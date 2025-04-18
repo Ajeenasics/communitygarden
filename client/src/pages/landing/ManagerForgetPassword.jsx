@@ -1,41 +1,41 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import LandingNav from './LandingNav'
-import "../../assets/css/managerlogin.css"
+import LandingNav from './LandingNav';
 
 
-function ManagerLogin() {
+function ManagerForgetPassword() {
       const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-      })
+        email: "",
+        password: "",
+      });
     
       const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         // Handle login logic here
-        console.log('Login form submitted:', formData)
-      }
+        console.log("Login form submitted:", formData);
+      };
     
       const handleChange = (e) => {
         setFormData({
           ...formData,
-          [e.target.name]: e.target.value
-        })
-      }
-    
+          [e.target.name]: e.target.value,
+        });
+      };
     
   return (
     <div>
-        <div className="row justify-content-center">
+          <div className="row justify-content-center">
       <LandingNav/>
       <div className="col-md-6 mt-5 pt-5">
         <div className="card">
           <div className="card-body">
-            <h2 className="text-center mb-4">Login</h2>
+            <h2 className="text-center mb-4">Forgot Password</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email address</label>
+                <label htmlFor="email" className="form-label">
+                  Email address
+                </label>
                 <input
                   type="email"
                   className="form-control"
@@ -47,7 +47,9 @@ function ManagerLogin() {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="password" className="form-label">Password</label>
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
                 <input
                   type="password"
                   className="form-control"
@@ -58,23 +60,20 @@ function ManagerLogin() {
                   required
                 />
               </div>
-              <p className="text-center mt-3">
-               <Link to={"/manager/Forgotpassword"}>Forgot Your Password ?</Link>
-            </p>
+              
 
-              <Link ><button type="submit" className="btn btn-success w-100">Login</button></Link>
+              <Link to={"/manager/Login"}><button type="submit" className="btn btn-success w-100">
+                Send 
+              </button></Link>
             </form>
-            <p className="text-center mt-3">
-              New User Rejister Now ? <Link to={"/manager/Signup"} >Rejister</Link>
-            </p>
+           
           </div>
         </div>
       </div>
     </div>
 
-      
     </div>
   )
 }
 
-export default ManagerLogin
+export default ManagerForgetPassword

@@ -94,14 +94,7 @@ function ManagerSignup() {
                   <label className="form-label">Photo</label>
                   <input type="file" className="form-control" name="photo" accept="image/*" required onChange={handleChange} />
                 </div>
-                <div className="col-md-6 mb-3">
-                  <label className="form-label">Year of Experience</label>
-                  <input type="text" className="form-control" name="experience" required onChange={handleChange} />
-                </div>
-                <div className="col-md-6 mb-3">
-                  <label className="form-label">Preferred Crops</label>
-                  <input type="text" className="form-control" name="crops" onChange={handleChange} />
-                </div>
+                
                 <div className="col-md-6 mb-3">
                   <label className="form-label">Yera of experience</label>
                   <input type="text" className="form-control" name="skills" onChange={handleChange} />
@@ -123,7 +116,7 @@ function ManagerSignup() {
                   </div>
                 </div>
               </div>
-              <button type="submit" className="btn btn-success w-100">Register</button>
+              <Link to={"/manager/Login"}><button type="submit" className="btn btn-success w-100">Register</button></Link>
               <p className="text-center mt-3">
                 Already have an account? <Link to="/manager/Login">Login</Link>
               </p>
