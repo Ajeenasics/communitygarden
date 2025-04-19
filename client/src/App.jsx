@@ -26,6 +26,11 @@ import ManagerEditProfile from "./components/Manager/ManagerEditProfile";
 import ManagerViewTask from "./components/Manager/ManagerViewTask";
 import ManagerAddTask from "./components/Manager/ManagerAddTask";
 import ManagerEditTask from "./components/Manager/ManagerEditTask";
+import CommunityHomePage from "./components/Community/CommunityHomePage";
+import AdminHomePage from "./components/Admin/AdminHomePage";
+import CommunityDashboard from "./components/Community/CommunityDashboard";
+import CommunityProfileView from "./components/Community/CommunityProfileView";
+import CommunityEditProfile from "./components/Community/CommunityEditProfile";
 
 function App() {
   return (
@@ -66,7 +71,12 @@ function App() {
         path="/Community/Forgotpassword"
         element={<CommunityForgotPassword />}
       />
+      <Route path="/community/dashboard" element={<CommunityDashboard />} />
+      <Route path="/community/profileview" element={<CommunityProfileView/>} />
+      <Route path="/community/editprofile" element={<CommunityEditProfile />} />
       <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/home" element={<AdminHomePage/>} />
+      <Route path="/community/home" element={<CommunityHomePage />} />
     </Routes>
   );
 }
