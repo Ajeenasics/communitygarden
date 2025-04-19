@@ -43,13 +43,13 @@ function LandingNav() {
                 <NavDropdown.Item as={Link} to="/login">
                   Gardner
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/admin-login">
+                <NavDropdown.Item as={Link} to="/manager/Login">
                   Manager
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/staff-login">
+                <NavDropdown.Item as={Link} to="/Cammunity/Login">
                   Community
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/staff-login">
+                <NavDropdown.Item as={Link} to="/admin/login">
                   Admin
                 </NavDropdown.Item>
 
@@ -62,13 +62,13 @@ function LandingNav() {
                 id="basic-nav-dropdown"
                 className="nav-link"
               >
-                <NavDropdown.Item as={Link} to="/login">
+                <NavDropdown.Item as={Link} to="/signup">
                   Gardner
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/admin-login">
+                <NavDropdown.Item as={Link} to="/manager/Signup">
                   Manager
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/staff-login">
+                <NavDropdown.Item as={Link} to="/Community/Signup">
                   Community
                 </NavDropdown.Item>
 
