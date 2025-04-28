@@ -51,7 +51,7 @@ function ManagerHomeNav() {
       
                               </li>
                               <li className="nav-item">
-                                  <Link className="nav-link" to="">
+                                  <Link className="nav-link" to="/manager/Chat">
                                       Chat
                                   </Link>
                               </li>
@@ -60,9 +60,11 @@ function ManagerHomeNav() {
                                       resources
                                   </Link>
                               </li><li className="nav-item">
-                                  <Link className="nav-link" to="">
-                                      Events
-                                  </Link>
+                              <NavDropdown title="Event" id="basic-nav-dropdown" className="nav-link">
+  <NavDropdown.Item as={Link} to="/manager/add/event">Add Event</NavDropdown.Item>
+  <NavDropdown.Item as={Link} to="/manager/view/event">View Event</NavDropdown.Item>
+</NavDropdown>
+      
                               </li>
                               {/* <li className="nav-item">
                     <Link className="nav-link" to="/contact">

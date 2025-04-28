@@ -31,6 +31,12 @@ import AdminHomePage from "./components/Admin/AdminHomePage";
 import CommunityDashboard from "./components/Community/CommunityDashboard";
 import CommunityProfileView from "./components/Community/CommunityProfileView";
 import CommunityEditProfile from "./components/Community/CommunityEditProfile";
+import ManagerViewGarden from "./components/Manager/ManagerViewGarden";
+import ManagerAddGarden from "./components/Manager/ManagerAddGarden";
+import ManagerEditGarden from "./components/Manager/ManagerEditGarden";
+import AddEvent from "./pages/Event/AddEvent";
+import ViewEvent from "./pages/Event/ViewEvent";
+import ManagerChat from "./pages/chat/ManagerChat";
 
 function App() {
   return (
@@ -64,6 +70,12 @@ function App() {
       <Route path="/manager/viewtask" element={<ManagerViewTask />} />
       <Route path="/manager/addtask" element={<ManagerAddTask />} />
       <Route path="/manager/edittask" element={<ManagerEditTask />} />
+      <Route path="/manager/view/garden" element={<ManagerViewGarden />} />
+      <Route path="/manager/add/garden" element={<ManagerAddGarden />} />
+      <Route path="/manager/edit/garden" element={<ManagerEditGarden />} />
+      <Route path="/manager/add/event" element={<AddEvent/>} />
+      <Route path="/manager/view/event" element={<ViewEvent />} />
+      <Route path="/manager/Chat" element={<ManagerChat/>} />
 
       <Route path="/Cammunity/Login" element={<CammunityLoginpage />} />
       <Route path="/Community/Signup" element={<CommunitySignupPage />} />
