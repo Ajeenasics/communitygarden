@@ -15,8 +15,7 @@ import {
 import Footer from '../../pages/landing/Footer';
   
 function ManagerHomePage() {
-  return (
-      
+  return (   
         <div>
       <div className="landscaping-home">
         {/* Navigation */}
@@ -223,14 +222,6 @@ function ManagerHomePage() {
       </div>
 <Footer/>
       </div>
-
-
-     
-
-    
-      
-
-
   )
 }
 
