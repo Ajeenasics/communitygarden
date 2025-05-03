@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
-
+import { NavDropdown } from 'react-bootstrap'
 function GardenerHomeNav() {
     const nav=useNavigate()
     const handlelogout=()=>{
@@ -37,10 +37,13 @@ function GardenerHomeNav() {
             </li> */}
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/gardener/viewgarden">
-                                Garden
-                            </Link>
-                        </li><li className="nav-item">
+                                        <NavDropdown title="Gardens" id="basic-nav-dropdown" className="nav-link">
+                                          <NavDropdown.Item as={Link} to="/gardener/viewgarden">View Garden</NavDropdown.Item>
+                                         
+                                          {/* <NavDropdown.Divider /> */}
+                                        </NavDropdown>
+                        
+                                      </li><li className="nav-item">
                             <Link className="nav-link" to="/gardener/viewtask">
                                 Task
                             </Link>
