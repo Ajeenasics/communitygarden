@@ -36,9 +36,9 @@ function ManagerHomeNav() {
 
               <li className="nav-item">
                 <NavDropdown title="Gardens" id="basic-nav-dropdown" className="nav-link">
-                  <NavDropdown.Item as={Link} to="">View Gardens</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="">Add Gardens</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="">Edit Gardens</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/manager/view/garden">View Gardens</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/manager/add/garden">Add Gardens</NavDropdown.Item>
+                  
                   {/* <NavDropdown.Divider /> */}
                 </NavDropdown>
 

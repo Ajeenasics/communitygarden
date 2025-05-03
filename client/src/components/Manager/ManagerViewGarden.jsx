@@ -2,6 +2,8 @@ import React from 'react'
 import { Card, Row, Col, Badge } from 'react-bootstrap';
 import "../../assets/css/GardenStyling.css";
 import ManagerHomeNav from './ManagerHomeNav';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 function ManagerViewGarden() {
     const items = [
         {
@@ -52,6 +54,15 @@ function ManagerViewGarden() {
                   </Badge>
                 </div>
               </Card.Body>
+              <Link to={"/manager/edit/garden"} className="w-100">
+    <Button
+      variant="success"
+      type="submit"
+      className="submit-btn w-100"
+    >
+      Edit
+    </Button>
+  </Link>
             </Card>
           </Col>
         ))}

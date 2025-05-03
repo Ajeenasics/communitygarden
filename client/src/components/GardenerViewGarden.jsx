@@ -1,97 +1,114 @@
-import React from 'react'
-import '../assets/css/garderner.css'
-import GardenerHomeNav from './GardenerHomeNav'
+import React from "react";
+import "../assets/css/garderner.css";
+import GardenerHomeNav from "./GardenerHomeNav";
+import { Card, Row, Col, Badge, Button } from "react-bootstrap";
 
-const gardenPlots = [
-  {
-    id: 1,
-    name: 'Plot A1',
-    size: '10x10 ft',
-    crop: 'Tomatoes',
-    status: 'Active',
-    image: '/images/plot1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Plot B2',
-    size: '8x12 ft',
-    crop: 'Spinach',
-    status: 'In Progress',
-    image: '/images/plot2.jpg',
-  },
-  {
-    id: 3,
-    name: 'Plot C3',
-    size: '12x12 ft',
-    crop: 'Carrots',
-    status: 'Harvested',
-    image: '/images/plot3.jpg',
-  },
-  {
-    id: 4,
-    name: 'Plot D4',
-    size: '15x10 ft',
-    crop: 'Peppers',
-    status: 'Available',
-    image: '/images/plot4.jpg',
-  },
-]
+
 
 function GardenerViewGarden() {
-  return (
-    <div className="garden-plot-view">
-        <GardenerHomeNav/>
-      {/* Hero Section */}
-      <div className="gardenergardenhero-section">
-        <div className="hero-content text-white text-center">
-          <h1>🌿 Garden Plot Overview</h1>
-          <p>Explore available and active plots in your community garden</p>
-        </div>
-      </div>
+  const gardens = [
+    {
+      id: 1,
+      name: "Rose Garden",
+      region: "East Wing",
+      days: "10 days",
+     assingedplot :"Plot A1",
+      status: "Active",
+      mainGardener: "John Smith",
+      
+      image: ("https://i.pinimg.com/736x/a4/13/66/a413660ff25c31767567079814105326.jpg"),
+      description:
+        "A Rose garden designed to attract people and butterflies alike. It features a variety of roses, including hybrid teas, floribundas, and climbing roses. The garden is designed to be a peaceful retreat, with winding paths and seating areas for visitors to enjoy the beauty of the flowers.",
 
-      {/* Plot Cards */}
-      <div className="container my-5">
-        <div className="row">
-          {gardenPlots.map((plot) => (
-            <div className="col-md-6 col-lg-4 mb-4" key={plot.id}>
-              <div className="card plot-card shadow-sm">
-                <img
-                  src={plot.image}
-                  className="card-img-top"
-                  alt={plot.name}
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{plot.name}</h5>
-                  <p className="card-text">
-                    <strong>Size:</strong> {plot.size} <br />
-                    <strong>Crop:</strong> {plot.crop} <br />
-                    <strong>Status:</strong>{' '}
-                    <span
-                      className={`badge ${
-                        plot.status === 'Active'
-                          ? 'bg-success'
-                          : plot.status === 'Available'
-                          ? 'bg-primary'
-                          : plot.status === 'Harvested'
-                          ? 'bg-secondary'
-                          : 'bg-warning text-dark'
-                      }`}
-                    >
-                      {plot.status}
-                    </span>
-                  </p>
-                  <button className="btn btn-outline-success w-100 mt-2">
-                    View Details
-                  </button>
+
+    },
+    {
+      id: 2,
+      name: "Lily Garden",
+      region: "West Wing",
+      days: "10 days",
+      assingedplot :"Plot A2",
+      status: "Active",
+      mainGardener: "Jane Doe",
+
+      image: ("https://i.pinimg.com/736x/c6/16/d1/c616d183f10f54793be770c59c84d734.jpg"),
+      description:  " A Lily garden that is perfect for visitors who love the fragrance and beauty of lilies. The garden features a variety of lilies, including oriental lilies, asiatic lilies, and hybrid lilies. The garden is designed to be a serene and tranquil space, with winding paths and seating areas for visitors to enjoy the beauty of the flowers."
+    },
+      
+      {
+        id: 3,
+        name: "Tulip Garden",
+        region: "North Wing",
+        days: "10 days",
+        assingedplot :"Plot A3",
+        status: "Active",
+        mainGardener: "Alice Johnson",
+  
+        image: ("https://i.pinimg.com/736x/99/4e/67/994e6709dfe83288d3ff4f57442a2412.jpg"),
+        description:
+          "A Tulip garden that is a feast for the eyes. The garden features a variety of tulips, including Darwin hybrids, Triumph tulips, and fringed tulips. The garden is designed to be a vibrant and colorful space, with winding paths and seating areas for visitors to enjoy the beauty of the flowers.",
+      },  
+  ];
+  return (
+    <div>
+      <GardenerHomeNav />
+      <div className="garden-view-container">
+        <Row xs={1} md={2} lg={3} className="g-4">
+          {gardens.map((garden) => (
+            <Col key={garden.id}>
+              <Card className="garden-card-container">
+                <div className="garden-image-wrapper">
+                  <Card.Img
+                    variant="top"
+                    src={garden.image}
+                    className="garden-image"
+                  />
+                 
                 </div>
-              </div>
-            </div>
+
+                <Card.Body>
+                  <Card.Title className="garden-title">
+                    {garden.name}
+                  </Card.Title>
+
+                  <div className="garden-details">
+                    <div className="detail-item">
+                      <i className="bi bi-geo-alt"></i>
+                      <span>{garden.region}</span>
+                    </div>
+                    
+                    <div className="detail-item">
+                      <i className="bi bi-rulers"></i>
+                      <span>{garden.assingedplot}</span>
+                    </div>
+                    <div className="detail-item">
+                      <i className="bi bi-person"></i>
+                      <span>{garden.mainGardener}</span>
+                    </div>
+                  </div>
+
+                  <Card.Text className="garden-description">
+                    {garden.description}
+                  </Card.Text>
+
+                
+
+                  {/* <div className="action-buttons">
+                    <Button variant="outline-success" className="view-btn">
+                      View Details
+                    </Button>
+                    <Button variant="success" className="manage-btn">
+                      Manage Garden
+                    </Button>
+                  </div> */}
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </div>
+        </Row>
       </div>
     </div>
-  )
+  );
 }
 
-export default GardenerViewGarden
+export default GardenerViewGarden;
