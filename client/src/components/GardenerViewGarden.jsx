@@ -49,6 +49,31 @@ function GardenerViewGarden() {
           "A Tulip garden that is a feast for the eyes. The garden features a variety of tulips, including Darwin hybrids, Triumph tulips, and fringed tulips. The garden is designed to be a vibrant and colorful space, with winding paths and seating areas for visitors to enjoy the beauty of the flowers.",
       },  
   ];
+
+
+
+  const [plots, setPlots] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchPlots();
+  }, []);
+
+  const fetchPlots = async () => {
+    try {
+      const response = await axios.get('/api/plo');
+      setPlots(response.data.data);
+      setLoading(false);
+    } catch (err) {
+      setError('Failed to fetch plots');
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div>
       <GardenerHomeNav />
