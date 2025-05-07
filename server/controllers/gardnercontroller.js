@@ -199,12 +199,88 @@ const logingardner = async (req, res) => {
     }
   };
   
+// garden plot
+
+const getAllPlots = async (req, res) => {
+  try {
+    const plots = await GardenPlot.find()
+      .populate('gardenId')
+      .populate('gardenerId');
+    res.status(200).json({ success: true, data: plots });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Get plot by ID
+const getPlotById = async (req, res) => {
+  try {
+    const plot = await GardenPlot.findById(req.params.id)
+      .populate('gardenId')
+      .populate('gardenerId');
+    if (!plot) {
+      return res.status(404).json({ success: false, message: 'Plot not found' });
+    }
+    res.status(200).json({ success: true, data: plot });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Create new plot
+const createPlot = async (req, res) => {
+  try {
+    const plot = await GardenPlot.create(req.body);
+    res.status(201).json({ success: true, data: plot });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Update plot
+const updatePlot = async (req, res) => {
+  try {
+    const plot = await GardenPlot.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, updatedAt: Date.now() },
+      { new: true }
+    );
+    if (!plot) {
+      return res.status(404).json({ success: false, message: 'Plot not found' });
+    }
+    res.status(200).json({ success: true, data: plot });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Delete plot
+const deletePlot = async (req, res) => {
+  try {
+    const plot = await GardenPlot.findByIdAndDelete(req.params.id);
+    if (!plot) {
+      return res.status(404).json({ success: false, message: 'Plot not found' });
+    }
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+
+
+  
   module.exports = {
     savegardner,
     uploadimg,
     logingardner,
     viewAllGardners,
     viewGardnerById,
-    updateGardnerById,forgotGardnerPassword
+    updateGardnerById,forgotGardnerPassword, getAllPlots,
+    getPlotById,
+    createPlot,
+    updatePlot,
+    deletePlot
   };
   
