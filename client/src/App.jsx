@@ -39,6 +39,8 @@ import ViewEvent from "./pages/Event/ViewEvent";
 import ManagerChat from "./pages/chat/ManagerChat";
 
 function App() {
+   const url = 'http://localhost:8080/upload'; 
+  
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -48,7 +50,7 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/gardener/home" element={<GardenerHome />} />
-      <Route path="/gardener/viewgarden" element={<GardenerViewGarden />} />
+      <Route path="/gardener/viewgarden" element={<GardenerViewGarden url={url} />} />
       <Route path="/gardener/viewtask" element={<GardenerViewTask />} />
       <Route path="/gardener/chat" element={<Gardnerchat />} />
       <Route path="/gardener/profile" element={<GardenerProfile />} />
@@ -69,8 +71,8 @@ function App() {
       <Route path="/manager/edit/profile" element={<ManagerEditProfile />} />
       <Route path="/manager/viewtask" element={<ManagerViewTask />} />
       <Route path="/manager/addtask" element={<ManagerAddTask />} />
-      <Route path="/manager/edittask" element={<ManagerEditTask />} />
-      <Route path="/manager/view/garden" element={<ManagerViewGarden />} />
+      <Route path="/manager/edittask/:taskId" element={<ManagerEditTask />} />
+      <Route path="/manager/view/garden" element={<ManagerViewGarden url={url}/>} />
       <Route path="/manager/add/garden" element={<ManagerAddGarden />} />
       <Route path="/manager/edit/garden" element={<ManagerEditGarden />} />
       <Route path="/manager/add/event" element={<AddEvent/>} />
@@ -85,9 +87,9 @@ function App() {
       />
       <Route path="/community/dashboard" element={<CommunityDashboard />} />
       <Route path="/community/profileview" element={<CommunityProfileView/>} />
-      <Route path="/community/editprofile" element={<CommunityEditProfile />} />
+      <Route path="/community/editprofile" element={<CommunityEditProfile url={url} />} />
       <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/admin/home" element={<AdminHomePage/>} />
+      <Route path="/admin/dashboard" element={<AdminHomePage/>} />
       <Route path="/community/home" element={<CommunityHomePage />} />
     </Routes>
   );
