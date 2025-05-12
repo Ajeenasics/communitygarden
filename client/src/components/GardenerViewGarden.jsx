@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from '../BaseAPI/axiosInstance';
 import '../assets/css/garderner.css';
@@ -73,9 +74,47 @@ const gardenerId = localStorage.getItem("gardenerId");
                   <button className="btn btn-outline-success w-100 mt-2">
                     View Details
                   </button>*/}
+
                 </div>
-              </div>
-            </div>
+
+                <Card.Body>
+                  <Card.Title className="garden-title">
+                    {garden.name}
+                  </Card.Title>
+
+                  <div className="garden-details">
+                    <div className="detail-item">
+                      <i className="bi bi-geo-alt"></i>
+                      <span>{garden.region}</span>
+                    </div>
+                    
+                    <div className="detail-item">
+                      <i className="bi bi-rulers"></i>
+                      <span>{garden.assingedplot}</span>
+                    </div>
+                    <div className="detail-item">
+                      <i className="bi bi-person"></i>
+                      <span>{garden.mainGardener}</span>
+                    </div>
+                  </div>
+
+                  <Card.Text className="garden-description">
+                    {garden.description}
+                  </Card.Text>
+
+                
+
+                  {/* <div className="action-buttons">
+                    <Button variant="outline-success" className="view-btn">
+                      View Details
+                    </Button>
+                    <Button variant="success" className="manage-btn">
+                      Manage Garden
+                    </Button>
+                  </div> */}
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
           {plots.length === 0 && (
             <div className="col-12 text-center">

@@ -136,10 +136,14 @@ function ManagerAddGarden() {
               </Row>
 
               <div className="d-grid">
+
                 <Button variant="success" type="submit" className="submit-btn">
                   Add Garden
                 </Button>
+
               </div>
+              
+               
             </Form>
           </Card.Body>
         </Card>

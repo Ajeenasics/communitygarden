@@ -4,6 +4,7 @@ import "../../assets/css/GardenStyling.css";
 import axios from '../../BaseAPI/axiosInstance';
 import ManagerHomeNav from './ManagerHomeNav';
 
+
 function ManagerViewGarden({ url }) {
   const [plots, setPlots] = useState([]);
   const [gardeners, setGardeners] = useState([]);
@@ -79,6 +80,7 @@ function ManagerViewGarden({ url }) {
       const res = await axios.put(`/manager/edit/${editData._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+
         },
       });
 
@@ -128,6 +130,7 @@ function ManagerViewGarden({ url }) {
                     Assigned Gardeners: {plot.assignedGardeners.length}
                   </Badge>
                 </div>
+
                 <Card.Body>
                   <div className="item-header">
                     <Card.Title>{plot.plotName}</Card.Title>
@@ -178,7 +181,6 @@ function ManagerViewGarden({ url }) {
           <Button variant="primary" onClick={handleAssignGardener}>Assign</Button>
         </Modal.Footer>
       </Modal>
-
       {/* Modal: Edit Plot */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header closeButton>

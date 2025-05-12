@@ -45,10 +45,10 @@ function ManagerHomeNav() {
                   <NavDropdown.Item as={Link} to="/manager/add/garden">Add Garden</NavDropdown.Item>
                 </NavDropdown>
               </li><li className="nav-item">
+
                 <NavDropdown title="Tasks" id="basic-nav-dropdown" className="nav-link">
                   <NavDropdown.Item as={Link} to="/manager/viewtask">View Task</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/manager/addtask">Add Task</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/manager/edittask">Edit Task</NavDropdown.Item>
                 </NavDropdown>
 
               </li>

@@ -198,6 +198,9 @@ const forgotGardnerPassword = async (req, res) => {
     res.status(500).json({ message: "Error updating password", error: error.message });
   }
 };
+
+  };
+  
 const getAllPlots = async (req, res) => {
   try {
     const plots = await GardenPlot.find()
@@ -264,10 +267,6 @@ const deletePlot = async (req, res) => {
   }
 };
 
-
-
-
-
 module.exports = {
   savegardner,
   uploadimg,
@@ -281,3 +280,5 @@ module.exports = {
   updatePlot,
   deletePlot
 };
+
+  
