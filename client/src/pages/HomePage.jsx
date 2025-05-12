@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function HomePage() {
   return (
-    <div className="container" id="home-page">
+    <div className="container">
       <div className="row mb-5">
         <div className="col-md-12 text-center">
           <h1 className="display-4">Welcome to Community Garden Connect</h1>

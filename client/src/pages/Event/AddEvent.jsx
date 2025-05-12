@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Form, Button, Row, Col } from "react-bootstrap";
-import { useState } from "react";
 import "../../assets/css/EventStyle.css";
 import ManagerHomeNav from "../../components/Manager/ManagerHomeNav";
+
 function AddEvent() {
   const [eventData, setEventData] = useState({
     eventName: "",
-    date: "",
-    time: "",
-    location: "",
-    category: "",
+    eventType: "",
+    venue: "",
     description: "",
-    maxSeats: "",
     image: null,
     imagePreview: null,
+    startDate: "",
+    endDate: "",
   });
 
   const handleImageChange = (e) => {
@@ -26,6 +25,7 @@ function AddEvent() {
       });
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Event Data:", eventData);
@@ -34,7 +34,7 @@ function AddEvent() {
   return (
     <div>
       <ManagerHomeNav />
-      <div className="add-event-container ">
+      <div className="add-event-container">
         <Card className="add-event-card">
           <Card.Header className="text-center bg-success text-white">
             <h3>Create New Event</h3>
@@ -83,38 +83,68 @@ function AddEvent() {
                     />
                   </Form.Group>
 
-                  <Row>
-                    <Col>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Date</Form.Label>
-                        <Form.Control
-                          type="date"
-                          value={eventData.date}
-                          onChange={(e) =>
-                            setEventData({ ...eventData, date: e.target.value })
-                          }
-                          required
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Time</Form.Label>
-                        <Form.Control
-                          type="time"
-                          value={eventData.time}
-                          onChange={(e) =>
-                            setEventData({ ...eventData, time: e.target.value })
-                          }
-                          required
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Event Type</Form.Label>
+                    <Form.Select
+                      value={eventData.eventType}
+                      onChange={(e) =>
+                        setEventData({ ...eventData, eventType: e.target.value })
+                      }
+                      required
+                    >
+                      <option value="">Select Event Type</option>
+                      <option value="Harvest Festival">Harvest Festival</option>
+                      <option value="Training">Training</option>
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Venue</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter venue"
+                      value={eventData.venue}
+                      onChange={(e) =>
+                        setEventData({ ...eventData, venue: e.target.value })
+                      }
+                      required
+                    />
+                  </Form.Group>
                 </Col>
               </Row>
 
-              <Form.Group className="mb-4">
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Start Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      value={eventData.startDate}
+                      onChange={(e) =>
+                        setEventData({ ...eventData, startDate: e.target.value })
+                      }
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>End Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      value={eventData.endDate}
+                      onChange={(e) =>
+                        setEventData({ ...eventData, endDate: e.target.value })
+                      }
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+           
+
+              <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -127,6 +157,8 @@ function AddEvent() {
                   required
                 />
               </Form.Group>
+
+             
 
               <div className="d-grid">
                 <Button variant="success" type="submit" className="submit-btn">

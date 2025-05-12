@@ -1,64 +1,99 @@
-import React from 'react'
-import '../assets/css/garderner.css'
-import GardenerHomeNav from './GardenerHomeNav'
-import { Card, Row, Col, Badge, Button } from 'react-bootstrap';
-import { useState } from 'react';
 
+import React, { useEffect, useState } from 'react';
+import axios from '../BaseAPI/axiosInstance';
+import '../assets/css/garderner.css';
+import GardenerHomeNav from './GardenerHomeNav';
 
 function GardenerViewTask() {
-  const [tasks] = useState([
-    {
-      id: 1,
-      title: "Rose Garden Maintenance",
-      type: "Maintenance",
-      area: "Rose Section",
-      priority: "High",
-      status: "In Progress",
-      assignedTo: "John Smith",
-      dueDate: "2024-03-20",
-      estimatedduration:" 5 days",
-      description: "Regular maintenance of rose garden including pruning and fertilizing",
-      image: "/images/rose-garden.jpg"
-    },
-    {
-      id: 2,
-      title: "Lily Garden Planting",
-      type: "Planting",
-      area: "Lily Section",
-      priority: "Medium",
-      status: "Pending",
-      assignedTo: "Jane Doe",
-      dueDate: "2024-03-25",
-      estimatedduration:" 3 days",
-      description: "Plant new lily bulbs in the designated area",
-      image: "/images/lily-garden.jpg"
-    },
-    {
-      id: 3,
-      title: "Tulip Garden Weeding",
-      type: "Weeding",
-      area: "Tulip Section",
-      priority: "Low",
-      status: "Completed",
-      assignedTo: "Alice Johnson",
-      dueDate: "2024-03-15",
-      estimatedduration:" 2 days",
-      description: "Remove weeds from the tulip garden to promote healthy growth",
-      image: "/images/tulip-garden.jpg"
-    },
+  const gardenerId = localStorage.getItem("gardenerId"); // ✅ from login
+  const [taskData, setTaskData] = useState([]);
 
-  ]);
+  // ✅ Fetch tasks for the logged-in gardener
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await axios.get(`/task/gardener/${gardenerId}`);
+        setTaskData(res.data.data || []);
+      } catch (err) {
+        console.error("Failed to fetch tasks:", err);
+      }
+    };
+    fetchTasks();
+  }, [gardenerId]);
 
-
+  // ✅ Handle status update
+  const handleStatusChange = async (taskId, newStatus) => {
+    try {
+      await axios.put(`/task/status/${taskId}`, { status: newStatus });
+      // ✅ Refresh task list after update
+      setTaskData(prevTasks =>
+        prevTasks.map(task =>
+          task._id === taskId ? { ...task, status: newStatus } : task
+        )
+      );
+      alert("Task status updated!");
+    } catch (err) {
+      console.error("Failed to update task status:", err);
+      alert("Error updating status");
+    }
+  };
 
   return (
+    <div className="view-task-page">
+      <GardenerHomeNav />
+      {/* Header */}
+      <div className="task-hero-section text-white text-center">
+        <h1 className="mb-2">🌱 Assigned Gardening Tasks</h1>
+        <p>Keep track of all assigned tasks and update your progress</p>
+      </div>
 
-     <div>
-    <div className="garden-task-container">
-      <GardenerHomeNav/>
-      <div className="task-header-section text-center mt-5">
-        <h2>Garden Tasks Overview</h2>
-       
+      {/* Task Table */}
+      <div className="container mt-4">
+        <div className="table-responsive">
+          <table className="table table-bordered table-hover shadow-sm">
+            <thead className="table-success">
+              <tr>
+                <th>#</th>
+                <th>Task Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taskData.length > 0 ? (
+                taskData.map((task, index) => (
+                  <tr key={task._id}>
+                    <td>{index + 1}</td>
+                    <td>{task.title}</td>
+                    <td>{task.description}</td>
+                    <td>{task.dueDate?.split("T")[0]}</td>
+                    <td>
+                      <select
+                        className="form-select"
+                        value={task.status}
+                        onChange={(e) =>
+                          handleStatusChange(task._id, e.target.value)
+                        }
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center text-muted">
+                    No tasks assigned yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
       <Row xs={1} md={2} lg={3} className="task-grid-container flex-direction: row; ">
@@ -132,11 +167,8 @@ function GardenerViewTask() {
         ))}
       </Row>
     </div>
+  );
 
-     </div>
-
-  
-  )
 }
 
-export default GardenerViewTask
+export default GardenerViewTask;

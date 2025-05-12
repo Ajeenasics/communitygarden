@@ -1,68 +1,21 @@
-import React from "react";
-import "../assets/css/garderner.css";
-import GardenerHomeNav from "./GardenerHomeNav";
-import { Card, Row, Col, Badge, Button } from "react-bootstrap";
 
+import React, { useState, useEffect } from 'react';
+import axios from '../BaseAPI/axiosInstance';
+import '../assets/css/garderner.css';
+import GardenerHomeNav from './GardenerHomeNav';
 
-
-function GardenerViewGarden() {
-  const gardens = [
-    {
-      id: 1,
-      name: "Rose Garden",
-      region: "East Wing",
-      days: "10 days",
-     assingedplot :"Plot A1",
-      status: "Active",
-      mainGardener: "John Smith",
-      
-      image: ("https://i.pinimg.com/736x/a4/13/66/a413660ff25c31767567079814105326.jpg"),
-      description:
-        "A Rose garden designed to attract people and butterflies alike. It features a variety of roses, including hybrid teas, floribundas, and climbing roses. The garden is designed to be a peaceful retreat, with winding paths and seating areas for visitors to enjoy the beauty of the flowers.",
-
-
-    },
-    {
-      id: 2,
-      name: "Lily Garden",
-      region: "West Wing",
-      days: "10 days",
-      assingedplot :"Plot A2",
-      status: "Active",
-      mainGardener: "Jane Doe",
-
-      image: ("https://i.pinimg.com/736x/c6/16/d1/c616d183f10f54793be770c59c84d734.jpg"),
-      description:  " A Lily garden that is perfect for visitors who love the fragrance and beauty of lilies. The garden features a variety of lilies, including oriental lilies, asiatic lilies, and hybrid lilies. The garden is designed to be a serene and tranquil space, with winding paths and seating areas for visitors to enjoy the beauty of the flowers."
-    },
-      
-      {
-        id: 3,
-        name: "Tulip Garden",
-        region: "North Wing",
-        days: "10 days",
-        assingedplot :"Plot A3",
-        status: "Active",
-        mainGardener: "Alice Johnson",
-  
-        image: ("https://i.pinimg.com/736x/99/4e/67/994e6709dfe83288d3ff4f57442a2412.jpg"),
-        description:
-          "A Tulip garden that is a feast for the eyes. The garden features a variety of tulips, including Darwin hybrids, Triumph tulips, and fringed tulips. The garden is designed to be a vibrant and colorful space, with winding paths and seating areas for visitors to enjoy the beauty of the flowers.",
-      },  
-  ];
-
-
-
+function GardenerViewGarden({url}) {
   const [plots, setPlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+const gardenerId = localStorage.getItem("gardenerId");
   useEffect(() => {
     fetchPlots();
   }, []);
 
   const fetchPlots = async () => {
     try {
-      const response = await axios.get('/api/plo');
+      const response = await axios.get('/gardener/'+gardenerId); // Make sure this endpoint is correct
       setPlots(response.data.data);
       setLoading(false);
     } catch (err) {
@@ -71,24 +24,57 @@ function GardenerViewGarden() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="text-center mt-5">Loading...</div>;
+  if (error) return <div className="text-center text-danger mt-5">{error}</div>;
 
   return (
-    <div>
+    <div className="garden-plot-view">
       <GardenerHomeNav />
-      <div className="garden-view-container">
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {gardens.map((garden) => (
-            <Col key={garden.id}>
-              <Card className="garden-card-container">
-                <div className="garden-image-wrapper">
-                  <Card.Img
-                    variant="top"
-                    src={garden.image}
-                    className="garden-image"
-                  />
-                 
+
+      {/* Hero Section */}
+      <div className="gardenergardenhero-section">
+        <div className="hero-content text-white text-center">
+          <h1>🌿 Garden Plot Overview</h1>
+          <p>Explore available and active plots in your community garden</p>
+        </div>
+      </div>
+
+      {/* Plot Cards */}
+      <div className="container my-5">
+        <div className="row">
+          {plots.map((plot) => (
+            <div className="col-md-6 col-lg-4 mb-4" key={plot._id || plot.id}>
+              <div className="card plot-card shadow-sm">
+                <img
+                  src={`${url}/${plot.image.filename}`}
+                  className="card-img-top"
+                  alt={plot.name}
+                  style={{ height: '200px', objectFit: 'cover' }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{plot.name}</h5>
+                  <p className="card-text">
+                    <strong>Size : </strong> {plot.size} <br />
+                    <strong>plotName : </strong> {plot.plotName} <br />
+                    <strong>location : </strong> {plot.location}</p>
+                    {/*<span
+                      className={`badge ${
+                        plot.status === 'Active'
+                          ? 'bg-success'
+                          : plot.status === 'Available'
+                          ? 'bg-primary'
+                          : plot.status === 'Harvested'
+                          ? 'bg-secondary'
+                          : 'bg-warning text-dark'
+                      }`}
+                    >
+                      {plot.status}
+                    </span> 
+                  </p>
+                  <button className="btn btn-outline-success w-100 mt-2">
+                    View Details
+                  </button>*/}
+
                 </div>
 
                 <Card.Body>
@@ -130,7 +116,12 @@ function GardenerViewGarden() {
               </Card>
             </Col>
           ))}
-        </Row>
+          {plots.length === 0 && (
+            <div className="col-12 text-center">
+              <p>No plots found.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
