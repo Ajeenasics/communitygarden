@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Card, Form, Button, Row, Col } from "react-bootstrap";
 import "../../assets/css/EventStyle.css";
 import ManagerHomeNav from "../../components/Manager/ManagerHomeNav";
+import axiosInstance from "../../BaseAPI/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function AddEvent() {
   const [eventData, setEventData] = useState({
@@ -14,7 +16,7 @@ function AddEvent() {
     startDate: "",
     endDate: "",
   });
-
+const navigate=useNavigate()
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -26,10 +28,86 @@ function AddEvent() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Event Data:", eventData);
+
+    const {
+      eventName,
+      eventType,
+      venue,
+      description,
+      image,
+      startDate,
+      endDate,
+    } = eventData;
+
+    // Basic empty checks
+    if (
+      !eventName ||
+      !eventType ||
+      !venue ||
+      !description ||
+      !image ||
+      !startDate ||
+      !endDate
+    ) {
+      alert("Please fill in all fields including the image.");
+      return;
+    }
+
+    const today = new Date().setHours(0, 0, 0, 0);
+    const start = new Date(startDate).setHours(0, 0, 0, 0);
+    const end = new Date(endDate).setHours(0, 0, 0, 0);
+
+    if (start <= today) {
+      alert("Start date must be a future date.");
+      return;
+    }
+
+    if (end <= start) {
+      alert("End date must be after start date.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("eventName", eventName);
+      formData.append("eventType", eventType);
+      formData.append("venue", venue);
+      formData.append("description", description);
+      formData.append("startDate", startDate);
+      formData.append("endDate", endDate);
+      formData.append("image", image);
+      formData.append("managerId", localStorage.getItem("managerId"));
+
+      const res = await axiosInstance.post("/addevent", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Event created successfully!");
+      console.log("Response:", res.data);
+navigate("/manager/view/event")
+      // Optionally reset the form
+      setEventData({
+        eventName: "",
+        eventType: "",
+        venue: "",
+        description: "",
+        image: null,
+        imagePreview: null,
+        startDate: "",
+        endDate: "",
+      });
+
+    } catch (err) {
+      console.error("Error creating event:", err);
+      alert("Failed to create event");
+    }
   };
+
+  const minDate = new Date().toISOString().split("T")[0];
 
   return (
     <div>
@@ -62,6 +140,7 @@ function AddEvent() {
                       accept="image/*"
                       onChange={handleImageChange}
                       className="image-input"
+                      required
                     />
                   </div>
                 </Col>
@@ -88,7 +167,10 @@ function AddEvent() {
                     <Form.Select
                       value={eventData.eventType}
                       onChange={(e) =>
-                        setEventData({ ...eventData, eventType: e.target.value })
+                        setEventData({
+                          ...eventData,
+                          eventType: e.target.value,
+                        })
                       }
                       required
                     >
@@ -119,6 +201,7 @@ function AddEvent() {
                     <Form.Label>Start Date</Form.Label>
                     <Form.Control
                       type="date"
+                      min={minDate}
                       value={eventData.startDate}
                       onChange={(e) =>
                         setEventData({ ...eventData, startDate: e.target.value })
@@ -132,6 +215,7 @@ function AddEvent() {
                     <Form.Label>End Date</Form.Label>
                     <Form.Control
                       type="date"
+                      min={minDate}
                       value={eventData.endDate}
                       onChange={(e) =>
                         setEventData({ ...eventData, endDate: e.target.value })
@@ -141,8 +225,6 @@ function AddEvent() {
                   </Form.Group>
                 </Col>
               </Row>
-
-           
 
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
@@ -157,8 +239,6 @@ function AddEvent() {
                   required
                 />
               </Form.Group>
-
-             
 
               <div className="d-grid">
                 <Button variant="success" type="submit" className="submit-btn">
