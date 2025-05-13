@@ -37,6 +37,9 @@ import ManagerEditGarden from "./components/Manager/ManagerEditGarden";
 import AddEvent from "./pages/Event/AddEvent";
 import ViewEvent from "./pages/Event/ViewEvent";
 import ManagerChat from "./pages/chat/ManagerChat";
+import CommunityResourseView from "./components/Community/CommunityResourseView";
+import CommunityResourseAdd from "./components/Community/CommunityResourseAdd";
+import CommunityEditResource from "./components/Community/CommunityEditResource";
 
 function App() {
    const url = 'http://localhost:8080/upload'; 
@@ -91,7 +94,12 @@ function App() {
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminHomePage/>} />
       <Route path="/community/home" element={<CommunityHomePage />} />
+            <Route path="/community/resourseview" element={<CommunityResourseView />} />
+      <Route path="/community/resource/add" element={<CommunityResourseAdd />} />
+      <Route path="/community/resource/edit" element={<CommunityEditResource />} />
+
     </Routes>
+
   );
 }
 export default App;

@@ -1,21 +1,22 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from '../BaseAPI/axiosInstance';
 import '../assets/css/garderner.css';
 import GardenerHomeNav from './GardenerHomeNav';
+import { Card } from 'react-bootstrap';
 
 function GardenerViewGarden({url}) {
   const [plots, setPlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-const gardenerId = localStorage.getItem("gardenerId");
+  const gardenerId = localStorage.getItem("gardenerId");
+
   useEffect(() => {
     fetchPlots();
   }, []);
 
   const fetchPlots = async () => {
     try {
-      const response = await axios.get('/gardener/'+gardenerId); // Make sure this endpoint is correct
+      const response = await axios.get('/gardener/'+gardenerId);
       setPlots(response.data.data);
       setLoading(false);
     } catch (err) {
@@ -31,7 +32,6 @@ const gardenerId = localStorage.getItem("gardenerId");
     <div className="garden-plot-view">
       <GardenerHomeNav />
 
-      {/* Hero Section */}
       <div className="gardenergardenhero-section">
         <div className="hero-content text-white text-center">
           <h1>🌿 Garden Plot Overview</h1>
@@ -39,82 +39,45 @@ const gardenerId = localStorage.getItem("gardenerId");
         </div>
       </div>
 
-      {/* Plot Cards */}
       <div className="container my-5" style={{minHeight:'80vh'}}>
         <div className="row">
           {plots.map((plot) => (
             <div className="col-md-6 col-lg-4 mb-4" key={plot._id || plot.id}>
-              <div className="card plot-card shadow-sm">
-                <img
+              <Card className="plot-card shadow-sm">
+                <Card.Img
                   src={`${url}/${plot.image.filename}`}
-                  className="card-img-top"
                   alt={plot.name}
                   style={{ height: '200px', objectFit: 'cover' }}
                 />
-                <div className="card-body">
-                  <h5 className="card-title">{plot.name}</h5>
-                  <p className="card-text">
-                    <strong>Size : </strong> {plot.size} <br />
-                    <strong>plotName : </strong> {plot.plotName} <br />
-                    <strong>location : </strong> {plot.location}</p>
-                    {/*<span
-                      className={`badge ${
-                        plot.status === 'Active'
-                          ? 'bg-success'
-                          : plot.status === 'Available'
-                          ? 'bg-primary'
-                          : plot.status === 'Harvested'
-                          ? 'bg-secondary'
-                          : 'bg-warning text-dark'
-                      }`}
-                    >
-                      {plot.status}
-                    </span> 
-                  </p>
-                  <button className="btn btn-outline-success w-100 mt-2">
-                    View Details
-                  </button>*/}
-
-                </div>
-
                 <Card.Body>
-                  <Card.Title className="garden-title">
-                    {garden.name}
-                  </Card.Title>
+                  <Card.Title>{plot.name}</Card.Title>
+                  <div className="plot-info">
+                    <p><strong>Size: </strong> {plot.size}</p>
+                    <p><strong>Plot Name: </strong> {plot.plotName}</p>
+                    <p><strong>Location: </strong> {plot.location}</p>
+                  </div>
 
                   <div className="garden-details">
                     <div className="detail-item">
                       <i className="bi bi-geo-alt"></i>
-                      <span>{garden.region}</span>
+                      <span>{plot.region}</span>
                     </div>
-                    
                     <div className="detail-item">
                       <i className="bi bi-rulers"></i>
-                      <span>{garden.assingedplot}</span>
+                      <span>{plot.assignedPlot}</span>
                     </div>
                     <div className="detail-item">
                       <i className="bi bi-person"></i>
-                      <span>{garden.mainGardener}</span>
+                      <span>{plot.mainGardener}</span>
                     </div>
                   </div>
 
                   <Card.Text className="garden-description">
-                    {garden.description}
+                    {plot.description}
                   </Card.Text>
-
-                
-
-                  {/* <div className="action-buttons">
-                    <Button variant="outline-success" className="view-btn">
-                      View Details
-                    </Button>
-                    <Button variant="success" className="manage-btn">
-                      Manage Garden
-                    </Button>
-                  </div> */}
                 </Card.Body>
               </Card>
-            </Col>
+            </div>
           ))}
           {plots.length === 0 && (
             <div className="col-12 text-center">
