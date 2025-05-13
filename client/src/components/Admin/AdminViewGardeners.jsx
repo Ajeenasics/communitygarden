@@ -1,13 +1,39 @@
 import React from 'react'
+import AdminNav from './AdminNav'
+import '../../assets/css/AdminDashCompStyle.css';
 import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
 import { FaUser, FaEnvelope, FaPhone, FaMapMarker, FaSeedling, FaClock, FaCheck } from 'react-icons/fa';
 
-
-function ManagerViewGardeners() {
-
+function AdminViewGardeners() {
     const gardeners = [
     {
       id: 1,
+      image: "/path-to-image.jpg",
+      fullName: "John Doe",
+      gender: "Male",
+      address: "123 Garden Street",
+      email: "john@example.com",
+      phone: "+1234567890",
+      experience: 5,
+      availability: "Weekdays",
+      preferredCrops: ["Vegetables", "Herbs", "Flowers"],
+      skills: ["Organic Farming", "Pest Control", "Soil Management", "Irrigation"]
+    },
+    {
+      id: 2,
+      image: "/path-to-image.jpg",
+      fullName: "John Doe",
+      gender: "Male",
+      address: "123 Garden Street",
+      email: "john@example.com",
+      phone: "+1234567890",
+      experience: 5,
+      availability: "Weekdays",
+      preferredCrops: ["Vegetables", "Herbs", "Flowers"],
+      skills: ["Organic Farming", "Pest Control", "Soil Management", "Irrigation"]
+    },
+    {
+      id: 3,
       image: "/path-to-image.jpg",
       fullName: "John Doe",
       gender: "Male",
@@ -24,6 +50,7 @@ function ManagerViewGardeners() {
 
   return (
     <div>
+      <AdminNav/>
           <Container className="gardener-container">
       <h2 className="text-center mb-4">Registered Gardeners</h2>
       <Row>
@@ -83,4 +110,4 @@ function ManagerViewGardeners() {
   )
 }
 
-export default ManagerViewGardeners
+export default AdminViewGardeners
