@@ -4,9 +4,9 @@ var admincontroller = require("./Controllers/Admincontroller");
 var organizationcontroller = require("./controllers/Organizationcontroller");
 var managerController = require("./controllers/Managercontroller")
 const gardenPlotController = require('./controllers/ploatcontroller');
-const taskController=require("./controllers/taskcontroller")
+const taskController = require("./controllers/taskcontroller")
 const resourceController = require('./controllers/Resoursecontroller');
-
+const eventcontroller = require("./controllers/eventcontroller")
 var route = express.Router();
 
 route.post('/gardner/register', gardnercontroller.uploadimg, gardnercontroller.savegardner);
@@ -34,7 +34,7 @@ route.post("/organization/forgot-password", organizationcontroller.forgotOrganiz
 route.post('/adminlogin', admincontroller.loginvalidateadmin);
 
 // ploat
-route.post('/createploat',gardenPlotController.uploadimg, gardenPlotController.createGardenPlot);
+route.post('/createploat', gardenPlotController.uploadimg, gardenPlotController.createGardenPlot);
 route.put('/assignGardeners/:plotId', gardenPlotController.assignGardenersToPlot);
 route.get('/view/assignGardeners/:plotId', gardenPlotController.ViewassignGardenersToPlot);
 route.get('/manager/:managerId', gardenPlotController.getAllGardenPlotsByManager);
@@ -52,10 +52,17 @@ route.get("/task/manager/:managerId", taskController.getTasksByManager);
 route.get("/viewa/task/:taskId", taskController.getSingleTask);
 
 // resourse
-route.get('/resource/all',resourceController.uploadimg, resourceController.viewAllResources);
+route.get('/resource/all', resourceController.uploadimg, resourceController.viewAllResources);
 route.get('/resource/:id', resourceController.viewOneResource);
 route.delete('/resource/delete/:id', resourceController.deleteResource);
 route.put('/resource/update/:id', resourceController.uploadimg, resourceController.updateResource);
 
+// event
+route.post("/addevent",eventcontroller.uploadimg, eventcontroller.addEvent);
+route.get("/event/upcoming", eventcontroller.viewUpcomingEvents);
+route.get("/event/manager/:managerId", eventcontroller.viewEventsByManager);
+route.post("/event/register/:eventId", eventcontroller.registerEventByGardener);
+route.put("/event/edit/:eventId", eventcontroller.editEvent);
+route.post("/event/delete/:eventId", eventcontroller.deleteEvent);
 
 module.exports = route;

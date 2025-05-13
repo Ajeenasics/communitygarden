@@ -47,7 +47,7 @@ function GardenerViewTask() {
       </div>
 
       {/* Task Table */}
-      <div className="container mt-4">
+      <div className="container mt-4" style={{minHeight:'80vh'}}>
         <div className="table-responsive">
           <table className="table table-bordered table-hover shadow-sm">
             <thead className="table-success">

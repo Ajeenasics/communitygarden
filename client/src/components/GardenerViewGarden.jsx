@@ -39,7 +39,7 @@ const gardenerId = localStorage.getItem("gardenerId");
       </div>
 
       {/* Plot Cards */}
-      <div className="container my-5">
+      <div className="container my-5" style={{minHeight:'80vh'}}>
         <div className="row">
           {plots.map((plot) => (
             <div className="col-md-6 col-lg-4 mb-4" key={plot._id || plot.id}>

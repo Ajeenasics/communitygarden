@@ -54,7 +54,7 @@ function App() {
       <Route path="/gardener/viewtask" element={<GardenerViewTask />} />
       <Route path="/gardener/chat" element={<Gardnerchat />} />
       <Route path="/gardener/profile" element={<GardenerProfile />} />
-      <Route path="/gardener/viewevent" element={<EventView />} />
+      <Route path="/gardener/viewevent" element={<EventView url={url} />} />
       <Route path="/gardener/viewresource" element={<ViewResource />} />
       <Route
         path="/gardener/forgetpassword"
@@ -76,7 +76,7 @@ function App() {
       <Route path="/manager/add/garden" element={<ManagerAddGarden />} />
       <Route path="/manager/edit/garden" element={<ManagerEditGarden />} />
       <Route path="/manager/add/event" element={<AddEvent/>} />
-      <Route path="/manager/view/event" element={<ViewEvent />} />
+      <Route path="/manager/view/event" element={<ViewEvent url={url}/>} />
       <Route path="/manager/Chat" element={<ManagerChat/>} />
 
       <Route path="/Cammunity/Login" element={<CammunityLoginpage />} />
