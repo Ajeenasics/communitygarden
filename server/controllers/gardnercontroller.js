@@ -199,7 +199,7 @@ const forgotGardnerPassword = async (req, res) => {
   }
 };
 
-  };
+
   
 const getAllPlots = async (req, res) => {
   try {
