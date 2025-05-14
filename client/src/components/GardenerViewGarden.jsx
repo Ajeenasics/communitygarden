@@ -3,6 +3,7 @@ import axios from '../BaseAPI/axiosInstance';
 import '../assets/css/garderner.css';
 import GardenerHomeNav from './GardenerHomeNav';
 import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function GardenerViewGarden({url}) {
   const [plots, setPlots] = useState([]);
@@ -69,6 +70,9 @@ function GardenerViewGarden({url}) {
                     <div className="detail-item">
                       <i className="bi bi-person"></i>
                       <span>{plot.mainGardener}</span>
+                    </div>
+                    <div className="detail-item">
+                     <Link to="/gardener/chat">Chat</Link>
                     </div>
                   </div>
 

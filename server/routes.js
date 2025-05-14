@@ -7,6 +7,8 @@ const gardenPlotController = require('./controllers/ploatcontroller');
 const taskController = require("./controllers/taskcontroller")
 const resourceController = require('./controllers/Resoursecontroller');
 const eventcontroller = require("./controllers/eventcontroller")
+const chatController = require("./controllers/MessageController");
+
 var route = express.Router();
 
 route.post('/gardner/register', gardnercontroller.uploadimg, gardnercontroller.savegardner);
@@ -64,5 +66,8 @@ route.get("/event/manager/:managerId", eventcontroller.viewEventsByManager);
 route.post("/event/register/:eventId", eventcontroller.registerEventByGardener);
 route.put("/event/edit/:eventId", eventcontroller.editEvent);
 route.post("/event/delete/:eventId", eventcontroller.deleteEvent);
+
+route.post("/message/send", chatController.sendMessage);
+route.get("/getmessage/:plotId", chatController.getPlotChat);
 
 module.exports = route;
