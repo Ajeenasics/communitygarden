@@ -58,7 +58,7 @@ function ManagerHomeNav() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="">
+                <Link className="nav-link" to="/manager/Chat">
                   Chat
                 </Link>
               </li>
