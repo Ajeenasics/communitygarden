@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import AdminNav from './AdminNav';
 import '../../assets/css/AdminDashCompStyle.css';
 import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
 import { FaBox, FaLeaf, FaHashtag } from 'react-icons/fa';
 import axios from '../../BaseAPI/axiosInstance';
+import ManagerHomeNav from './ManagerHomeNav';
 
-function AdminViewResources({url}) {
+function ManagerViewResources({url}) {
   const [resources, setResources] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function AdminViewResources({url}) {
 
   return (
     <div>
-      <AdminNav />
+      <ManagerHomeNav />
       <Container className="resource-container">
         <h2 className="text-center">Available Resources</h2>
         <Row>
@@ -67,4 +67,4 @@ function AdminViewResources({url}) {
   );
 }
 
-export default AdminViewResources;
+export default ManagerViewResources;

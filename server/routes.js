@@ -43,7 +43,7 @@ route.get('/manager/:managerId', gardenPlotController.getAllGardenPlotsByManager
 route.get('/gardener/:gardenerId', gardenPlotController.getGardenPlotsByGardener);
 route.put("/manager/edit/:plotId", gardenPlotController.uploadimg, gardenPlotController.updateGardenPlot);
 route.delete("/manager/delete/:plotId", gardenPlotController.deleteGardenPlot);
-
+route.get("/plot/viewallgarden", gardenPlotController.ViewallGardenPlot);
 // task
 route.post("/createtask", taskController.createTask);
 route.get("/task/gardener/:gardenerId", taskController.getTasksByGardener);
@@ -54,6 +54,7 @@ route.get("/task/manager/:managerId", taskController.getTasksByManager);
 route.get("/viewa/task/:taskId", taskController.getSingleTask);
 
 // resourse
+route.post('/resource/add', resourceController.uploadimg, resourceController.addResource);
 route.get('/resource/all', resourceController.uploadimg, resourceController.viewAllResources);
 route.get('/resource/:id', resourceController.viewOneResource);
 route.delete('/resource/delete/:id', resourceController.deleteResource);

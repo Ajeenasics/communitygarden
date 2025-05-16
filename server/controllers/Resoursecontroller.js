@@ -10,13 +10,15 @@ const storage = multer.diskStorage({
     },
 });
 
-exports.uploadimg = multer({ storage: storage }).single("image");
+exports.uploadimg = multer({ storage: storage }).single("photo");
 
 // Add new resource
 exports.addResource = async (req, res) => {
+  // console.log(req.body);
+  // console.log(req.file);
   try {
     const { resourceName, resourceType, quantity } = req.body;
-    const photo = req.file?.filename;
+    const photo = req.file;
 
     const newResource = new Resource({
       resourceName,
@@ -24,6 +26,7 @@ exports.addResource = async (req, res) => {
       quantity,
       photo,
     });
+console.log(newResource,"newResource");
 
     await newResource.save();
     res.status(201).json({ message: 'Resource added successfully', data: newResource });
@@ -70,8 +73,8 @@ exports.updateResource = async (req, res) => {
     const { resourceName, resourceType, quantity } = req.body;
     const updateData = { resourceName, resourceType, quantity };
 
-    if (req.file?.filename) {
-      updateData.photo = req.file.filename;
+    if (req.file) {
+      updateData.photo = req.file;
     }
 
     const updated = await Resource.findByIdAndUpdate(req.params.id, updateData, { new: true });

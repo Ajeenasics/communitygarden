@@ -34,7 +34,7 @@ function CommunitySidebar() {
           </li>
           <li className="nav-item mb-2">
             <span className="nav-link active text-white d-flex align-items-center">
-              <Link  className='text-decoration-none text-light' to="/community/profile"><FaUserTie className="me-2" /> Profile</Link>
+              <Link  className='text-decoration-none text-light' to="/community/profileview"><FaUserTie className="me-2" /> Profile</Link>
             </span>
           </li>
            <li className="nav-item mb-2">

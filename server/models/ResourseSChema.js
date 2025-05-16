@@ -10,11 +10,11 @@ const resourceSchema = new mongoose.Schema({
     required: true,
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true,
   },
   photo: {
-    type: String, // Store image filename or URL
+    type: Object, // Store image filename or URL
     required: true,
   },
   createdAt: {
