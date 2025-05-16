@@ -53,7 +53,7 @@ function ManagerHomeNav() {
 
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="">
+                <Link className="nav-link" to="/manager/view/gardners">
                   Gardeners
                 </Link>
               </li>
@@ -63,7 +63,7 @@ function ManagerHomeNav() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="">
+                <Link className="nav-link" to="/manager/view/resource">
                   resources
                 </Link>
               </li>
