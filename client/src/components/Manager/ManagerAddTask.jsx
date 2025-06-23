@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function ManagerAddTask() {
   const [taskData, setTaskData] = useState({
     title: '',
-    taskType: '', // ✅ Added taskType
+    taskType: '',
     description: '',
     dueDate: '',
     gardenerId: '',
@@ -18,15 +18,26 @@ function ManagerAddTask() {
 
   const [plots, setPlots] = useState([]);
   const [gardeners, setGardeners] = useState([]);
-
   const managerId = localStorage.getItem("managerId");
+  const navigate = useNavigate();
+
+  // ✅ Reorder gardeners by skill match
+  const reorderGardenersBySkill = (gardenersList, taskType) => {
+    return [...gardenersList].sort((a, b) => {
+      const aHasSkill = a.skills?.includes(taskType);
+      const bHasSkill = b.skills?.includes(taskType);
+      if (aHasSkill && !bHasSkill) return -1;
+      if (!aHasSkill && bHasSkill) return 1;
+      return 0;
+    });
+  };
 
   // ✅ Fetch Plots Assigned to This Manager
   useEffect(() => {
     const fetchPlots = async () => {
       try {
         const res = await axios.get(`/manager/${managerId}`);
-        setPlots(res.data.data); // Make sure the API returns assigned plots
+        setPlots(res.data.data);
       } catch (error) {
         console.error("Failed to fetch plots:", error.message);
       }
@@ -40,7 +51,9 @@ function ManagerAddTask() {
       if (taskData.plotId) {
         try {
           const res = await axios.get(`/view/assignGardeners/${taskData.plotId}`);
-          setGardeners(res.data.data);
+          const fetchedGardeners = res.data.data || [];
+          const reordered = reorderGardenersBySkill(fetchedGardeners, taskData.taskType);
+          setGardeners(reordered);
         } catch (error) {
           console.error("Failed to fetch gardeners:", error.message);
         }
@@ -48,7 +61,16 @@ function ManagerAddTask() {
     };
     fetchGardeners();
   }, [taskData.plotId]);
-const navigate=useNavigate()
+
+  // ✅ Handle Task Type Change
+  const handleTaskTypeChange = (selectedType) => {
+    setTaskData((prev) => ({ ...prev, taskType: selectedType }));
+    if (gardeners.length > 0) {
+      const reordered = reorderGardenersBySkill(gardeners, selectedType);
+      setGardeners(reordered);
+    }
+  };
+
   // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,9 +81,7 @@ const navigate=useNavigate()
     try {
       const res = await axios.post("/createtask", finalData);
       alert("Task Created Successfully!");
-      navigate("/manager/viewtask")
-      console.log(res.data);
-      // Optionally reset form
+      navigate("/manager/viewtask");
       setTaskData({
         title: '',
         taskType: '',
@@ -91,7 +111,7 @@ const navigate=useNavigate()
                 <Form.Label>Task Title</Form.Label>
                 <Form.Control
                   type="text"
-                  value={taskData.title}
+                  value={taskData?.title}
                   onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
                   required
                 />
@@ -101,8 +121,8 @@ const navigate=useNavigate()
                 <Form.Label>Task Type</Form.Label>
                 <Form.Select
                   name="taskType"
-                  value={taskData.taskType}
-                  onChange={(e) => setTaskData({ ...taskData, taskType: e.target.value })}
+                  value={taskData?.taskType}
+                  onChange={(e) => handleTaskTypeChange(e.target.value)}
                   required
                 >
                   <option value="">Select Task Type</option>
@@ -120,7 +140,7 @@ const navigate=useNavigate()
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  value={taskData.description}
+                  value={taskData?.description}
                   onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
                   required
                 />
@@ -129,14 +149,16 @@ const navigate=useNavigate()
               <Form.Group className="mb-3">
                 <Form.Label>Plot</Form.Label>
                 <Form.Select
-                  value={taskData.plotId}
-                  onChange={(e) => setTaskData({ ...taskData, plotId: e.target.value, gardenerId: '' })}
+                  value={taskData?.plotId}
+                  onChange={(e) =>
+                    setTaskData({ ...taskData, plotId: e.target.value, gardenerId: '' })
+                  }
                   required
                 >
                   <option value="">Select Plot</option>
                   {plots.map((plot) => (
                     <option key={plot._id} value={plot._id}>
-                      {plot.plotName || `Plot ${plot._id}`}
+                      {plot?.plotName || `Plot ${plot._id}`}
                     </option>
                   ))}
                 </Form.Select>
@@ -145,15 +167,15 @@ const navigate=useNavigate()
               <Form.Group className="mb-3">
                 <Form.Label>Assign to Gardener</Form.Label>
                 <Form.Select
-                  value={taskData.gardenerId}
+                  value={taskData?.gardenerId}
                   onChange={(e) => setTaskData({ ...taskData, gardenerId: e.target.value })}
                   required
-                  disabled={!taskData.plotId}
+                  disabled={!taskData?.plotId}
                 >
                   <option value="">Select Gardener</option>
                   {gardeners.map((gardener) => (
-                    <option key={gardener._id} value={gardener._id}>
-                      {gardener.fullName}
+                    <option key={gardener?._id} value={gardener?._id}>
+                      {gardener?.fullName} {`(${gardener?.availabletime})`} {gardener?.skills?.includes(taskData?.taskType) ? '🌟' : ''}
                     </option>
                   ))}
                 </Form.Select>
@@ -163,7 +185,7 @@ const navigate=useNavigate()
                 <Form.Label>Due Date</Form.Label>
                 <Form.Control
                   type="date"
-                  value={taskData.dueDate}
+                  value={taskData?.dueDate}
                   onChange={(e) => setTaskData({ ...taskData, dueDate: e.target.value })}
                   required
                 />

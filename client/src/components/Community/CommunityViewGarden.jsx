@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Badge, Button, Modal, Form } from 'react-bootstrap';
 import "../../assets/css/GardenStyling.css";
 import axios from '../../BaseAPI/axiosInstance';
-import AdminNav from './AdminNav';
+import CommunityResourceNav from './CommunityResourceNav';
 
 
-function AdminViewGarden({ url }) {
+function CommunityViewGarden({ url }) {
   const [plots, setPlots] = useState([]);
   const [gardeners, setGardeners] = useState([]);
 
@@ -36,7 +36,7 @@ function AdminViewGarden({ url }) {
 
   return (
     <div>
-      <AdminNav />
+      <CommunityResourceNav />
       <div className="view-items-container">
         <h2 className="headding-div text-center mb-4"> Garden Plots</h2>
         <Row xs={1} md={2} lg={3} className="g-4">
@@ -74,4 +74,4 @@ function AdminViewGarden({ url }) {
   );
 }
 
-export default AdminViewGarden;
+export default CommunityViewGarden;
